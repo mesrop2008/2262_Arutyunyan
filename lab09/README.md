@@ -409,3 +409,131 @@ print(calc_hypot("3", "4"))
 * Пример 1: декоратор @toint для функции add(a, b). При вызове со строковыми аргументами add("10", "20") строки превращаются в числа 10 и 20, и функция выводит число 30 вместо строковой конкатенации 1020.
 * Пример 2: функция умножения product("2", "3", "4") преобразует три аргумента в целые числа и возвращает 24.
 * Пример 3: функция расчета длины гипотенузы hypot, обернутая через calc_hypot = toint(hypot), принимает строковые координаты "3" и "4" и возвращает число 5.0.
+
+# Задачи олимп
+
+## Задание 1
+
+```python
+def is_prime(num):
+    if num < 2:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+n = int(input())
+
+count = 0
+current_num = 1
+
+while count < n:
+    current_num += 1
+    if is_prime(current_num):
+        count += 1
+
+print(current_num)
+```
+
+## Задание 2
+
+```python
+def find_departure_day():
+    n = int(input())
+    schedule = list(map(int, input().split()))
+    
+    seen_dresses = set()
+    
+    for day in range(n):
+        seen_dresses.add(schedule[day])
+        if len(seen_dresses) == 3:
+            return day + 1
+            
+    return n
+
+print(find_departure_day())
+```
+
+## Задание 3
+
+```python
+def shorten_word():
+    word = input().strip()
+    
+    max_count = -1
+    target_char = ''
+    
+    for char in set(word):
+        count = word.count(char)
+        if count > max_count:
+            max_count = count
+            target_char = char
+            
+    return word.replace(target_char, '')
+
+print(shorten_word())
+```
+
+## Задание 4
+
+```python
+def check_passwords():
+    n = int(input())
+    
+    row1 = set("1234567890")
+    row2 = set("qwertyuiop")
+    row3 = set("asdfghjkl")
+    row4 = set("zxcvbnm")
+    
+    for _ in range(n):
+        password = set(input().strip())
+        
+        has_r1 = not password.isdisjoint(row1)
+        has_r2 = not password.isdisjoint(row2)
+        has_r3 = not password.isdisjoint(row3)
+        has_r4 = not password.isdisjoint(row4)
+        
+        if has_r1 and has_r2 and has_r3 and has_r4:
+            print("strong")
+        else:
+            print("weak")
+
+check_passwords()
+```
+
+## Задание 5
+
+```python
+def solve_durak():
+    trump_suit = input().strip()
+    n = int(input())
+    
+    ranks = {
+        "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
+        "Jack": 11, "Queen": 12, "King": 13, "Ace": 14
+    }
+    
+    results = []
+    
+    for _ in range(n):
+        attack_rank, attack_suit = input().split()
+        defend_rank, defend_suit = input().split()
+        
+        is_valid = False
+        
+        if attack_suit == defend_suit:
+            if ranks[defend_rank] > ranks[attack_rank]:
+                is_valid = True
+        elif defend_suit == trump_suit:
+            is_valid = True
+            
+        if is_valid:
+            results.append("1")
+        else:
+            results.append("0")
+            
+    print(" ".join(results))
+
+solve_durak()
+```
